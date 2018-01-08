@@ -33,7 +33,7 @@ public class DriveTrain_Subsystem extends Subsystem{
 	}
 	
 	public void TeleopDrive(Joystick Left, Joystick Right) {
-		m_drive.tankDrive((Left.getY()+1)/2, (Right.getY()+1)/2);
+		m_drive.tankDrive(-(Left.getY()+1)/2, -(Right.getY()+1)/2);
 	}
 	
 	public void Stop() {
