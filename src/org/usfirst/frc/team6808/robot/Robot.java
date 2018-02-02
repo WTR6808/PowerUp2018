@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team6808.robot.autonomous.DoNothing;
+import org.usfirst.frc.team6808.robot.autonomous.Drive_Auto;
 import org.usfirst.frc.team6808.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
@@ -26,6 +29,7 @@ import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain_Subsystem driveTrain= new DriveTrain_Subsystem();
+	public static final Drive_Auto autoDrive = new Drive_Auto();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -38,8 +42,21 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Default Do Nothing", new DoNothing());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		autoDrive.doneTraveling = false;
+		
+		m_chooser.addObject("Default Drive", new Drive_Auto());
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -92,6 +109,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
 	}
 
 	@Override

@@ -19,6 +19,10 @@ public class OI {
 	Joystick driverLeft = new Joystick(0);
 	Joystick driverRight = new Joystick(1);
 	
+	Joystick driverController = new Joystick(2);
+	Joystick driverX = new Joystick(3);
+	
+	
 	public OI() {
 		
 	}
@@ -31,4 +35,10 @@ public class OI {
 		return driverRight;
 	}
 
+	public Joystick getJoystickC() {
+		return driverController;
+	}
+	public Joystick getJoystickX() {
+		return driverX;
+	}
 }
