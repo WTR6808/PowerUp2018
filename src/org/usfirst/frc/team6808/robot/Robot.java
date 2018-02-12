@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6808.robot;
 
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6808.robot.autonomous.*;
-import org.usfirst.frc.team6808.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
 
@@ -25,7 +25,7 @@ import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain_Subsystem driveTrain= new DriveTrain_Subsystem();
 	public static OI m_oi;
@@ -96,9 +96,7 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		if (m_autonomousCommand != null) m_autonomousCommand.start();
 	}
 
 	/**
@@ -117,9 +115,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
+		if (m_autonomousCommand != null) m_autonomousCommand.cancel();
 	}
 
 	/**

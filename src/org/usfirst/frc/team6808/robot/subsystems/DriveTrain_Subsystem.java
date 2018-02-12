@@ -28,7 +28,7 @@ public class DriveTrain_Subsystem extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new ArcadeDrive_Command());
-		
+		m_drive.setSafetyEnabled(false);
 	}
 	
 	public void TeleopTankDrive(Joystick Left, Joystick Right) {
@@ -40,10 +40,11 @@ public class DriveTrain_Subsystem extends Subsystem{
 		//m_drive.tankDrive(Left.getY(), Left.getRawAxis(3));
 	//}
 	public void TeleopArcadeDrive(Joystick x) {
-		m_drive.arcadeDrive(x.getRawAxis(1), x.getRawAxis(0));
+		m_drive.arcadeDrive(x.getRawAxis(1)/1.15, x.getRawAxis(0)/1.15);
 	}
 	public void AutoDrive(double speed1, double speed2) {
 		m_drive.arcadeDrive(speed1, speed2);
+		
 	}
 	
 	public void Stop() {
