@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team6808.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,8 +33,7 @@ public class Robot extends IterativeRobot {
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+	SendableChooser<Command> m_chooser = new SendableChooser<>(); 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -42,13 +43,20 @@ public class Robot extends IterativeRobot {
 		m_oi = new OI();
 		m_chooser.addDefault("Default Do Nothing", new DoNothing());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		CameraServer.getInstance().startAutomaticCapture();
+		double speed = SmartDashboard.getNumber("AutoDrive Speed", 70);
 		
 		
-		
-		m_chooser.addObject("Default Drive", new Drive_Auto());
-		
-		
-		
+		m_chooser.addObject("Default Drive 65 1 sec", new Drive_Auto(65, 1));
+		m_chooser.addObject("Default Drive 70 1 sec", new Drive_Auto(70, 1));
+		m_chooser.addObject("Default Drive 80 1 sec", new Drive_Auto(80, 1));
+		m_chooser.addObject("Default Drive 90 1 sec", new Drive_Auto(90, 1));
+		m_chooser.addObject("Default Drive 100 1 sec", new Drive_Auto(100, 1));
+		m_chooser.addObject("Default Drive 65 2 sec", new Drive_Auto(65, 2));
+		m_chooser.addObject("Default Drive 70 2 sec", new Drive_Auto(70, 2));
+		m_chooser.addObject("Default Drive 80 2 sec", new Drive_Auto(80, 2));
+		m_chooser.addObject("Default Drive 90 2 sec", new Drive_Auto(90, 2));
+		m_chooser.addObject("Default Drive 100 2 sec", new Drive_Auto(100, 2));
 		
 		
 		

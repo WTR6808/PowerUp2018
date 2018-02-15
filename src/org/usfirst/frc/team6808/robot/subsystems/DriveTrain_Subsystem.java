@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain_Subsystem extends Subsystem{
@@ -22,8 +23,11 @@ public class DriveTrain_Subsystem extends Subsystem{
 	   Spark m_frontRight = new Spark(2);
 	   Spark m_rearRight = new Spark(3);
 	   SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
-
+	   VictorSP test = new VictorSP(4);
+	   
 	   DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
+	   
+	   DifferentialDrive m_test = new DifferentialDrive(test, test);
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -50,6 +54,10 @@ public class DriveTrain_Subsystem extends Subsystem{
 	public void Stop() {
 		m_drive.tankDrive(0,0);
 		m_drive.arcadeDrive(0, 0);
+	}
+	
+	public void testMotor(int speed) {
+		m_test.arcadeDrive(speed, 0);
 	}
 	
 	

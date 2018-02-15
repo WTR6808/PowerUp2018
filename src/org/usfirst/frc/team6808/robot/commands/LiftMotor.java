@@ -1,25 +1,21 @@
-package org.usfirst.frc.team6808.robot.autonomous;
+package org.usfirst.frc.team6808.robot.commands;
 
 import org.usfirst.frc.team6808.robot.Robot;
+import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Drive_Auto extends Command {
+public class LiftMotor extends Command {
+	
+	public int  motorSpeed;
 
-	public double speed;
-	public boolean doneTraveling;
-	public int time;
-	
-	
-    public Drive_Auto(double doubSpeed, int intTime) {
+    public LiftMotor(int speed) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
-    	speed = doubSpeed;
-    	time = intTime;
+        motorSpeed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -28,28 +24,23 @@ public class Drive_Auto extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("first");
-    	Robot.driveTrain.AutoDrive(-(100/speed), 0);
+    	Robot.driveTrain.testMotor(motorSpeed);
     	
-    	Timer.delay(time);
-    	Robot.driveTrain.AutoDrive(0, 0);
-    	System.out.println("Success");
-    	
-    	doneTraveling = true;
-    	}
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return doneTraveling;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.AutoDrive(0, 0);
+    	Robot.driveTrain.testMotor(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.driveTrain.testMotor(0);
     }
 }

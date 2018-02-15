@@ -7,7 +7,11 @@
 
 package org.usfirst.frc.team6808.robot;
 
+import org.usfirst.frc.team6808.robot.commands.LiftMotor;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 /**
@@ -22,8 +26,32 @@ public class OI {
 	Joystick driverController = new Joystick(2);
 	Joystick driverX = new Joystick(3);
 	
+	//Buttons
+	Button xboxA_Driver			  = new JoystickButton(driverX, 1);
+	Button xboxB_Driver			  = new JoystickButton(driverX, 2);
+	Button xboxX_Driver			  = new JoystickButton(driverX, 3);
+	Button xboxY_Driver			  = new JoystickButton(driverX, 4);
+	Button xboxLeftBumper_Driver  = new JoystickButton(driverX, 5);
+	Button xboxRightBumper_Driver = new JoystickButton(driverX, 6);
+	Button xboxBack_Driver		  = new JoystickButton(driverX, 7);
+	Button xboxStart_Driver		  = new JoystickButton(driverX, 8);
+	Button xboxL3_Driver		  = new JoystickButton(driverX, 9);
+	Button xboxR3_Driver		  = new JoystickButton(driverX, 10);
+	
+	Button xboxA_Operator			= new JoystickButton(driverLeft, 1);
+	Button xboxB_Operator			= new JoystickButton(driverLeft, 2);
+	Button xboxX_Operator			= new JoystickButton(driverLeft, 3);
+	Button xboxY_Operator			= new JoystickButton(driverLeft, 4);
+	Button xboxLeftBumper_Operator  = new JoystickButton(driverLeft, 5);
+	Button xboxRightBumper_Operator = new JoystickButton(driverLeft, 6);
+	Button xboxBack_Operator		= new JoystickButton(driverLeft, 7);
+	Button xboxStart_Operator		= new JoystickButton(driverLeft, 8);
+	Button xboxL3_Operator		  	= new JoystickButton(driverLeft, 9);
+	Button xboxR3_Operator		  	= new JoystickButton(driverLeft, 10);
 	
 	public OI() {
+		
+		xboxX_Driver.whenPressed(new LiftMotor(1));
 		
 	}
 	
