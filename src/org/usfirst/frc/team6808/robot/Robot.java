@@ -9,7 +9,9 @@ package org.usfirst.frc.team6808.robot;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,8 +19,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6808.robot.autonomous.*;
+import org.usfirst.frc.team6808.robot.subsystems.ArmLeft_Subsystem;
+import org.usfirst.frc.team6808.robot.subsystems.Intake_Subsystem;
 import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6808.robot.subsystems.IntakePivot;
+import org.usfirst.frc.team6808.robot.subsystems.LiftMotor_Subsystem;
+import org.usfirst.frc.team6808.robot.subsystems.PullMotor_Subsystem2;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,10 +37,16 @@ import org.usfirst.frc.team6808.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain_Subsystem driveTrain= new DriveTrain_Subsystem();
-	public static OI m_oi;
-
+	//public static final LiftMotor_Subsystem motorLift= new LiftMotor_Subsystem();
+	public static final PullMotor_Subsystem2 motorPull = new PullMotor_Subsystem2();
+	public static final Intake_Subsystem intake = new Intake_Subsystem();          
+	public static final IntakePivot intakePivot = new IntakePivot(); 
+	public static OI m_oi; 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>(); 
+	//SendableChooser<String> m_start = new SendableChooser<>(); 
+	
+	//public String startingPlace;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -43,12 +56,63 @@ public class Robot extends IterativeRobot {
 		m_oi = new OI();
 		m_chooser.addDefault("Default Do Nothing", new DoNothing());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		double speed = SmartDashboard.getNumber("AutoDrive Speed", 70);
+		/*
+		String gameData;
+		
+		m_start.addDefault("Center", "Center");
+		m_start.addObject("Right", "Right");
+		m_start.addObject("Left", "Left");
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(m_start.getSelected() == "Center") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'R') {
+					SmartDashboard.putString("Auto State", "R");
+					Cube_Middle_Right_Auto auto_left = new Cube_Middle_Right_Auto(-65,(0.60));
+					auto_left.start();
+				}else{
+					SmartDashboard.putString("Default Do Nothing", "L");
+					Drive_Auto auto_nothing = new Drive_Auto(-65,(0.60));
+					auto_nothing.start();
+				}
+				
+			}
+		}else if(m_start.getSelected() == "Left") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'L') {
+					SmartDashboard.putString("Auto State", "L");
+					Cube_Left_Auto auto_left = new Cube_Left_Auto(-65,(0.60));
+					auto_left.start();
+				}else{
+					SmartDashboard.putString("Auto Drive", "R");
+					Drive_Auto auto_left = new Drive_Auto(-65,(0.60));
+					auto_left.start();
+				}
+		}else if(m_start.getSelected() == "Right") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'R') {
+					SmartDashboard.putString("Auto State", "R");
+					Cube_Right_Auto auto_right = new Cube_Right_Auto(-65,(0.60));
+					auto_right.start();
+				}else{
+					SmartDashboard.putString("Auto Drive", "L");
+					Drive_Auto auto_left = new Drive_Auto(-65,(0.60));
+					auto_left.start();
+				}
+			}
+		}*/
 		
 		
+		m_chooser.addObject("Default Drive 65 3/5 sec", new Drive_Auto (65, (.60)));
 		m_chooser.addObject("Default Drive 65 1 sec", new Drive_Auto(65, 1));
-		m_chooser.addObject("Default Drive 70 1 sec", new Drive_Auto(70, 1));
+		m_chooser.addObject("Default Drive Back 65 3/5 sec", new Drive_Auto (-65, (.60)));
+		m_chooser.addObject("Default Drive Back 65 1 sec", new Drive_Auto(-65, 1));
+		/*m_chooser.addObject("Default Drive 70 1 sec", new Drive_Auto(70, 1));
 		m_chooser.addObject("Default Drive 80 1 sec", new Drive_Auto(80, 1));
 		m_chooser.addObject("Default Drive 90 1 sec", new Drive_Auto(90, 1));
 		m_chooser.addObject("Default Drive 100 1 sec", new Drive_Auto(100, 1));
@@ -56,7 +120,7 @@ public class Robot extends IterativeRobot {
 		m_chooser.addObject("Default Drive 70 2 sec", new Drive_Auto(70, 2));
 		m_chooser.addObject("Default Drive 80 2 sec", new Drive_Auto(80, 2));
 		m_chooser.addObject("Default Drive 90 2 sec", new Drive_Auto(90, 2));
-		m_chooser.addObject("Default Drive 100 2 sec", new Drive_Auto(100, 2));
+		m_chooser.addObject("Default Drive 100 2 sec", new Drive_Auto(100, 2));*/
 		
 		
 		
@@ -64,7 +128,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-	}
+		}
+	
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -79,6 +144,59 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		/*m_chooser.addDefault("Default Do Nothing", new DoNothing());
+		// chooser.addObject("My Auto", new MyAutoCommand());
+		//CameraServer.getInstance().startAutomaticCapture();
+		double speed = SmartDashboard.getNumber("AutoDrive Speed", 70);
+		
+		String gameData;
+		
+		m_start.addDefault("Center", "Center");
+		m_start.addObject("Right", "Right");
+		m_start.addObject("Left", "Left");
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(m_start.getSelected() == "Center") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'R') {
+					SmartDashboard.putString("Auto State", "R");
+					Cube_Middle_Right_Auto auto_left = new Cube_Middle_Right_Auto(-65,(0.60));
+					auto_left.start();
+				}else{
+					SmartDashboard.putString("Default Do Nothing", "L");
+					Drive_Auto auto_nothing = new Drive_Auto(-65,(0.60));
+					auto_nothing.start();
+				}
+				
+			}
+		}else if(m_start.getSelected() == "Left") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'L') {
+					SmartDashboard.putString("Auto State", "L");
+					Cube_Left_Auto auto_left = new Cube_Left_Auto(-65,(0.60));
+					auto_left.start();
+				}else{
+					SmartDashboard.putString("Auto Drive", "R");
+					Drive_Auto auto_left = new Drive_Auto(-65,(0.60));
+					auto_left.start();
+				}
+		}else if(m_start.getSelected() == "Right") {
+			if(gameData.length() > 0)
+			{
+				if(gameData.charAt(0) == 'R') {
+					SmartDashboard.putString("Auto State", "R");
+					Cube_Right_Auto auto_right = new Cube_Right_Auto(-65,(0.60));
+					auto_right.start();
+				}else{
+					SmartDashboard.putString("Auto Drive", "L");
+					Drive_Auto auto_left = new Drive_Auto(-65,(0.60));
+					auto_left.start();
+				}
+			}
+		}
+		}*/
 	}
 
 	/**

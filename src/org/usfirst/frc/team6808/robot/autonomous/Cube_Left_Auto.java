@@ -1,21 +1,25 @@
-package org.usfirst.frc.team6808.robot.commands;
+package org.usfirst.frc.team6808.robot.autonomous;
 
 import org.usfirst.frc.team6808.robot.Robot;
-import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftMotor extends Command {
-	
-	public int  motorSpeed;
+public class Cube_Left_Auto extends Command {
 
-    public LiftMotor(int speed) {
+	public double speed;
+	public boolean doneTraveling;
+	public double time;
+	
+	
+    public Cube_Left_Auto(double doubSpeed, double d) {
         // Use requires() here to declare subsystem dependencies
-       // requires(Robot.motorLift);       
-        //motorSpeed = speed;
+        requires(Robot.driveTrain);
+    	speed = doubSpeed;
+    	time = d;
     }
 
     // Called just before this Command runs the first time
@@ -24,24 +28,27 @@ public class LiftMotor extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.driveTrain.testMotor(motorSpeed);
-    	//Robot.motorLift.liftMotorSpeed(motorSpeed);
-    	
-    }
+    	Robot.driveTrain.AutoDrive(-1, 0);
+    	Timer.delay((3/5));
+    	Robot.driveTrain.AutoDrive(0, 0);
+    	Robot.driveTrain.AutoDrive(0, 1);
+    	Robot.intakePivot.PivotArm(1, .1);
+    	Robot.intake.Intake(0.5);
+    	doneTraveling = true;
+    	}
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return doneTraveling;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.motorLift.Stop();
+    	Robot.driveTrain.AutoDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//Robot.motorLift.Stop();
     }
 }

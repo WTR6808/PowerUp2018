@@ -12,14 +12,14 @@ public class Drive_Auto extends Command {
 
 	public double speed;
 	public boolean doneTraveling;
-	public int time;
+	public double time;
 	
 	
-    public Drive_Auto(double doubSpeed, int intTime) {
+    public Drive_Auto(double doubSpeed, double d) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
     	speed = doubSpeed;
-    	time = intTime;
+    	time = d;
     }
 
     // Called just before this Command runs the first time
@@ -32,6 +32,7 @@ public class Drive_Auto extends Command {
     	Robot.driveTrain.AutoDrive(-(100/speed), 0);
     	
     	Timer.delay(time);
+    	
     	Robot.driveTrain.AutoDrive(0, 0);
     	System.out.println("Success");
     	

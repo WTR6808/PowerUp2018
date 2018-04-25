@@ -7,7 +7,8 @@
 
 package org.usfirst.frc.team6808.robot;
 
-import org.usfirst.frc.team6808.robot.commands.LiftMotor;
+import org.usfirst.frc.team6808.robot.commands.DrivePivot;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,7 +24,7 @@ public class OI {
 	Joystick driverLeft = new Joystick(0);
 	Joystick driverRight = new Joystick(1);
 	
-	Joystick driverController = new Joystick(2);
+	Joystick opX = new Joystick(2);
 	Joystick driverX = new Joystick(3);
 	
 	//Buttons
@@ -38,20 +39,27 @@ public class OI {
 	Button xboxL3_Driver		  = new JoystickButton(driverX, 9);
 	Button xboxR3_Driver		  = new JoystickButton(driverX, 10);
 	
-	Button xboxA_Operator			= new JoystickButton(driverLeft, 1);
-	Button xboxB_Operator			= new JoystickButton(driverLeft, 2);
-	Button xboxX_Operator			= new JoystickButton(driverLeft, 3);
-	Button xboxY_Operator			= new JoystickButton(driverLeft, 4);
-	Button xboxLeftBumper_Operator  = new JoystickButton(driverLeft, 5);
-	Button xboxRightBumper_Operator = new JoystickButton(driverLeft, 6);
-	Button xboxBack_Operator		= new JoystickButton(driverLeft, 7);
-	Button xboxStart_Operator		= new JoystickButton(driverLeft, 8);
-	Button xboxL3_Operator		  	= new JoystickButton(driverLeft, 9);
-	Button xboxR3_Operator		  	= new JoystickButton(driverLeft, 10);
+	Button xboxA_Operator			= new JoystickButton(opX, 1);
+	Button xboxB_Operator			= new JoystickButton(opX, 2);
+	Button xboxX_Operator			= new JoystickButton(opX, 3);
+	Button xboxY_Operator			= new JoystickButton(opX, 4);
+	Button xboxLeftBumper_Operator  = new JoystickButton(opX, 5);
+	Button xboxRightBumper_Operator = new JoystickButton(opX, 6);
+	Button xboxBack_Operator		= new JoystickButton(opX, 7);
+	Button xboxStart_Operator		= new JoystickButton(opX, 8);
+	Button xboxL3_Operator		  	= new JoystickButton(opX, 9);
+	Button xboxR3_Operator		  	= new JoystickButton(opX, 10);
 	
 	public OI() {
 		
-		xboxX_Driver.whenPressed(new LiftMotor(1));
+		// Raise and lower arms
+		xboxX_Operator.whenPressed(new DrivePivot(1));
+		xboxX_Operator.whenReleased(new DrivePivot(0));
+		xboxY_Operator.whenPressed(new DrivePivot(-1));
+		xboxY_Operator.whenReleased(new DrivePivot(0));
+		
+		
+		
 		
 	}
 	
@@ -63,8 +71,8 @@ public class OI {
 		return driverRight;
 	}
 
-	public Joystick getJoystickC() {
-		return driverController;
+	public Joystick getopX() {
+		return opX;
 	}
 	public Joystick getJoystickX() {
 		return driverX;

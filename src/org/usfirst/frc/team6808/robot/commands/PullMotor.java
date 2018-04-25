@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftMotor extends Command {
+public class PullMotor extends Command {
 	
 	public int  motorSpeed;
 
-    public LiftMotor(int speed) {
+    public PullMotor(int speed) {
         // Use requires() here to declare subsystem dependencies
-       // requires(Robot.motorLift);       
-        //motorSpeed = speed;
+        requires(Robot.motorPull);       
+        motorSpeed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +25,7 @@ public class LiftMotor extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Robot.driveTrain.testMotor(motorSpeed);
-    	//Robot.motorLift.liftMotorSpeed(motorSpeed);
+    	Robot.motorPull.pullMotorSpeed(motorSpeed);
     	
     }
 
@@ -36,12 +36,12 @@ public class LiftMotor extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.motorLift.Stop();
+    	Robot.motorPull.Stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//Robot.motorLift.Stop();
+    	Robot.motorPull.Stop();
     }
 }

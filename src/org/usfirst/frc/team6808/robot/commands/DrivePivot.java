@@ -1,32 +1,31 @@
 package org.usfirst.frc.team6808.robot.commands;
 
 import org.usfirst.frc.team6808.robot.Robot;
-import org.usfirst.frc.team6808.robot.subsystems.DriveTrain_Subsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftMotor extends Command {
-	
-	public int  motorSpeed;
+public class DrivePivot extends Command {
 
-    public LiftMotor(int speed) {
+	double speed;
+	
+    public DrivePivot(double motorspeed) {
         // Use requires() here to declare subsystem dependencies
-       // requires(Robot.motorLift);       
-        //motorSpeed = speed;
+        requires(Robot.intakePivot);
+        
+        speed = motorspeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.driveTrain.testMotor(motorSpeed);
-    	//Robot.motorLift.liftMotorSpeed(motorSpeed);
-    	
+    	Robot.intakePivot.drivePivot(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,12 +35,10 @@ public class LiftMotor extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.motorLift.Stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//Robot.motorLift.Stop();
     }
 }
